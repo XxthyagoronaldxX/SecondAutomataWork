@@ -5,16 +5,20 @@ import main.java.org.example.models.AutomatoTransitionModel;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class AutomatoBuildHelper {
     private final List<AutomatoTransitionModel> automatoTransitionModelList;
     private String initialState;
     private final List<String> finalStatelist;
+    private final Set<String> stateSet;
 
     public AutomatoBuildHelper() {
         this.automatoTransitionModelList = new ArrayList<>();
         this.finalStatelist = new ArrayList<>();
+        this.stateSet = new HashSet<>();
     }
 
     public static AutomatoBuildHelper build() {
@@ -25,6 +29,9 @@ public class AutomatoBuildHelper {
         AutomatoTransitionModel automatoTransitionModel = new AutomatoTransitionModel(from, value, to);
 
         automatoTransitionModelList.add(automatoTransitionModel);
+
+        stateSet.add(from);
+        stateSet.add(to);
 
         return this;
     }
@@ -39,12 +46,7 @@ public class AutomatoBuildHelper {
     }
 
     private boolean stateNoExists(String state) {
-        return automatoTransitionModelList
-                .stream()
-                .noneMatch(automatoTransitionModel -> automatoTransitionModel
-                        .getFrom()
-                        .equals(state)
-                );
+        return !stateSet.contains(state);
     }
 
     public AutomatoBuildHelper addFinalState(String state) {

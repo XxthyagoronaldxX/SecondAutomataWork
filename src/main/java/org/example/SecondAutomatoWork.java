@@ -22,16 +22,74 @@ public class SecondAutomatoWork {
 
     private static void question01() {
         AutomatoBuildHelper automatoBuildHelper = AutomatoBuildHelper.build()
-                .addTransition("q0", 'a', "q1")
-                .addTransition("q1", 'a', "q1")
-                .addTransition("q1", 'b', "q2")
-                .addTransition("q2", 'b', "q1")
+                .addTransition("q1", 'a', "q2")
+                .addTransition("q2", 'a', "q2")
+                .addTransition("q2", 'b', "q3")
+                .addTransition("q2", 'c', "q4")
+                .addTransition("q3", 'b', "q3")
+                .addTransition("q3", 'c', "q4")
+                .addTransition("q4", 'c', "q4")
+                .addTransition("q4", 'a', "q2")
                 .addFinalState("q1")
-                .setInitialState("q0");
+                .addFinalState("q2")
+                .addFinalState("q3")
+                .addFinalState("q4")
+                .setInitialState("q1");
 
-        AutomatoModel automatoModel = AutomatoModel.fromBuild(automatoBuildHelper);
+        AutomatoModel automatoModelA = AutomatoModel.fromBuild(automatoBuildHelper);
 
-        System.out.println(automatoModel.run(""));
+        automatoBuildHelper = AutomatoBuildHelper.build()
+                .addTransition("q1", 'a', "q2")
+                .addTransition("q1", 'b', "q5")
+                .addTransition("q1", 'c', "q5")
+                .addTransition("q2", 'a', "q3")
+                .addTransition("q3", 'a', "q4")
+                .addTransition("q4", 'b', "q4")
+                .addTransition("q4", 'c', "q4")
+                .addTransition("q5", 'b', "q5")
+                .addTransition("q5", 'c', "q5")
+                .addTransition("q5", 'a', "q6")
+                .addTransition("q6", 'a', "q7")
+                .addTransition("q7", 'a', "q8")
+                .addFinalState("q4")
+                .addFinalState("q8")
+                .setInitialState("q1");
+
+        AutomatoModel automatoModelB = AutomatoModel.fromBuild(automatoBuildHelper);
+
+        automatoBuildHelper = AutomatoBuildHelper.build()
+                .addTransition("q1", 'a', "q2")
+                .addTransition("q1", 'b', "q3")
+                .addTransition("q2", 'a', "q4")
+                .addTransition("q2", 'b', "q5")
+                .addTransition("q4", 'a', "q4")
+                .addTransition("q4", 'b', "q3")
+                .addTransition("q5", 'b', "q5")
+                .addFinalState("q2")
+                .addFinalState("q3")
+                .addFinalState("q5")
+                .setInitialState("q1");
+
+        AutomatoModel automatoModelC = AutomatoModel.fromBuild(automatoBuildHelper);
+
+        automatoBuildHelper = AutomatoBuildHelper.build()
+                .addTransition("q1", 'a', "q2")
+                .addTransition("q1", 'b', "q3")
+                .addTransition("q2", 'a', "q2")
+                .addTransition("q2", 'b', "q3")
+                .addTransition("q3", 'b', "q3")
+                .addTransition("q3", 'a', "q4")
+                .addTransition("q4", 'c', "q4")
+                .addFinalState("q2")
+                .addFinalState("q4")
+                .setInitialState("q1");
+
+        AutomatoModel automatoModelD = AutomatoModel.fromBuild(automatoBuildHelper);
+
+        System.out.println(automatoModelA.run("abbbbbbcccaaac"));
+        System.out.println(automatoModelB.run(""));
+        System.out.println(automatoModelC.run(""));
+        System.out.println(automatoModelD.run(""));
     }
 
     private static void question02() {
