@@ -12,6 +12,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Map;
+import java.util.Optional;
+import java.util.Scanner;
 
 public class SecondAutomatoWork {
     public static void main(String[] args) {
@@ -77,6 +79,7 @@ public class SecondAutomatoWork {
                 .addTransition("q1", 'b', "q3")
                 .addTransition("q2", 'a', "q2")
                 .addTransition("q2", 'b', "q3")
+                .addTransition("q2", 'c', "q4")
                 .addTransition("q3", 'b', "q3")
                 .addTransition("q3", 'a', "q4")
                 .addTransition("q4", 'c', "q4")
@@ -86,10 +89,25 @@ public class SecondAutomatoWork {
 
         AutomatoModel automatoModelD = AutomatoModel.fromBuild(automatoBuildHelper);
 
-        System.out.println(automatoModelA.run("abbbbbbcccaaac"));
-        System.out.println(automatoModelB.run(""));
-        System.out.println(automatoModelC.run(""));
-        System.out.println(automatoModelD.run(""));
+        Scanner read = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("Informe a cadeia: ");
+            String tape = read.next();
+
+            if (tape.equals("-1")) break;
+
+            System.out.println("Selecionar automato: ");
+            String letter = read.next();
+
+            switch (letter.toLowerCase()) {
+                case "a" -> System.out.println(automatoModelA.run(tape));
+                case "b" -> System.out.println(automatoModelB.run(tape));
+                case "c" -> System.out.println(automatoModelC.run(tape));
+                case "d" -> System.out.println(automatoModelD.run(tape));
+                default -> System.out.println("Seleção inválida.");
+            }
+        }
     }
 
     private static void question02() {
@@ -130,6 +148,9 @@ public class SecondAutomatoWork {
 
         TransducerModel transducerModel = TransducerModel.fromBuild(transducerBuildHelper);
 
-        System.out.println(transducerModel.run("50$25$50$100$25$50$100$"));
+        Optional<String> resultOptional = transducerModel.run("50$25$50$100$25$50$100$");
+
+        if (resultOptional.isEmpty()) System.out.println("Invalid Tape.");
+        else System.out.println("Result: " + resultOptional.get());
     }
 }
