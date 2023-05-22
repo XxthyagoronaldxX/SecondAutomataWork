@@ -19,9 +19,19 @@ public class SecondAutomatoWork {
     private static final Scanner read = new Scanner(System.in);
 
     public static void main(String[] args) {
-        question01();
-        question02();
-        question03();
+        while (true) {
+            System.out.println("Informe a questão: ");
+            String option = read.next();
+
+            if (option.equals("-1")) break;
+
+            switch (option.toLowerCase()) {
+                case "1" -> question01();
+                case "2" -> question02();
+                case "3" -> question03();
+                default -> System.out.println("Seleção inválida.");
+            }
+        }
     }
 
     private static void question01() {
