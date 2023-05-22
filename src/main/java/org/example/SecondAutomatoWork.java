@@ -16,6 +16,8 @@ import java.util.Optional;
 import java.util.Scanner;
 
 public class SecondAutomatoWork {
+    private static final Scanner read = new Scanner(System.in);
+
     public static void main(String[] args) {
         question01();
         question02();
@@ -89,8 +91,6 @@ public class SecondAutomatoWork {
 
         AutomatoModel automatoModelD = AutomatoModel.fromBuild(automatoBuildHelper);
 
-        Scanner read = new Scanner(System.in);
-
         while (true) {
             System.out.println("Informe a cadeia: ");
             String tape = read.next();
@@ -148,7 +148,10 @@ public class SecondAutomatoWork {
 
         TransducerModel transducerModel = TransducerModel.fromBuild(transducerBuildHelper);
 
-        Optional<String> resultOptional = transducerModel.run("50$25$50$100$25$50$100$");
+        System.out.println("Informe a cadeia a ser inserida no transdutor: (Separar cadeais com $)");
+        String tape = read.next();
+
+        Optional<String> resultOptional = transducerModel.run(tape);
 
         if (resultOptional.isEmpty()) System.out.println("Invalid Tape.");
         else System.out.println("Result: " + resultOptional.get());

@@ -53,6 +53,8 @@ public class TransducerModel {
             }
         }
 
+        if (!finalStateList.contains(currentState)) return Optional.empty();
+
         return Optional.of(result.toString());
     }
 
