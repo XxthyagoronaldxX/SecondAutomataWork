@@ -41,6 +41,7 @@ public class SecondAutomatoWork {
                 .addTransition("q2", 'b', "q3")
                 .addTransition("q2", 'c', "q4")
                 .addTransition("q3", 'b', "q3")
+                .addTransition("q3", 'a', "q2")
                 .addTransition("q3", 'c', "q4")
                 .addTransition("q4", 'c', "q4")
                 .addTransition("q4", 'a', "q2")
